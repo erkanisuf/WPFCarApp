@@ -24,7 +24,7 @@ namespace WPFGarbage
         
         CarModel bmw = new CarModel();
         CarModel audi = new CarModel();
-        string EngineType;      //globaali -muuttuja (ei suositeltava)
+        string EngineType;     
         string GearType;
         string RadioType;
         
@@ -33,21 +33,14 @@ namespace WPFGarbage
             InitializeComponent();
             txtMaxSpeed.Text = "0";
             txtHorsePower.Text = "0";
-            if(checkfrontLight.IsChecked == true)
-            {
-                FrontLightbtn.Background = Brushes.Yellow;
-            }
-            else
-            {
-                FrontLightbtn.Background = Brushes.Red;
-            }
+        
 
         }
-        private void ShowCarInfo(CarModel auto) //Tämä rutiini listaa parametrinä saadun olion arvot
+        private void ShowCarInfo(CarModel auto) 
         {
             string message = "Model:" + auto.Model + "\n" +
                 "Color: " + auto.Color + "\n" +
-                  //"Maxspeed: " + auto.MaxSpeed + "\n" +
+                
                   "Maxspeed: " + auto.GetMaxSpeed() + "\n" +
                 "GearType: " + auto.GearType + "\n" +
                 "EngineType: " + auto.EngineType + "\n" +
@@ -111,7 +104,7 @@ namespace WPFGarbage
             if (!bmw.Running)
             {
                 btnIndicator.Background = Brushes.Red;
-
+                CarsSpeed.Text = bmw.AverageSpeed.ToString() + "km/h";
             }
         }
         private void SpeedUPone(object sender, RoutedEventArgs e)
@@ -134,6 +127,31 @@ namespace WPFGarbage
         {
             bmw.Brake();
             CarsSpeed.Text = bmw.AverageSpeed.ToString() + "km/h" ;
+        }
+
+        private void openFrontLIghtBMW(object sender, RoutedEventArgs e)
+        {
+
+            var button = sender as CheckBox;
+
+            if (button.IsChecked == true)
+            {
+
+                bmw.turnFrontLight(true);
+                if (bmw.FrontLight)
+                {
+                    FrontLightbtnOne.Background = Brushes.Yellow;
+                }
+            }
+            else
+            {
+                bmw.turnFrontLight(false);
+                if (!bmw.FrontLight)
+                {
+                    FrontLightbtnOne.Background = Brushes.Red;
+                }
+            }
+
         }
 
         //Second COlumn
@@ -182,7 +200,7 @@ namespace WPFGarbage
             if (!audi.Running)
             {
                 btnIndicator2.Background = Brushes.Red;
-                
+                CarsSpeedTwo.Text = audi.AverageSpeed.ToString() + "km/h";
             }
         }
 
@@ -210,8 +228,8 @@ namespace WPFGarbage
         {
             txtColor.Text = "";
             txtModel.Text = "";
-            txtMaxSpeed.Text = "";
-            txtHorsePower.Text = "";
+            txtMaxSpeed.Text = "0";
+            txtHorsePower.Text = "0";
         }
 
         private void SetRadioButtonsOff()
@@ -278,5 +296,8 @@ namespace WPFGarbage
 
             
         }
+
+        
+
     }
 }

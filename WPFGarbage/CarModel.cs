@@ -25,23 +25,24 @@ namespace WPFGarbage
         public int HorsePower{ get; set; }
         public int AverageSpeed { get; set; }
 
-        public void turnFrontLight(Boolean param) //Tämä on metodi
+        public void turnFrontLight(Boolean param) 
         {
-            //------//
+         
             FrontLight = param;
         }
-        public void StartEngine() //Tämä on metodi
+        public void StartEngine() 
         {
-            //------//
+          
             Running = true;
         }
 
         public void StopEngine()
         {
             Running = false;
+            AverageSpeed = 0;
         }
 
-        //Auton huippunopeuden asettaminen metodin kautta, tiedon tallennuspaikaksi määritelty kenttä, mikä on tyypiltään Private (eli ei ole ominaisuus)
+   
         public void SetMaxSpeed(int UserInputMaxSpeed)
         {
 
@@ -52,7 +53,7 @@ namespace WPFGarbage
             {
                 maxSpeed = 0;
 
-                throw new ArgumentOutOfRangeException();  //lisätäään ominaisuuden tarkastamiseen poikkeuksen nostamistoiminto. Poikkeus nostetaan, jos nopeus on alle 0 tai yli 400
+                throw new ArgumentOutOfRangeException(); 
             }
         }
 
@@ -66,11 +67,11 @@ namespace WPFGarbage
             {
                 HorsePower = 0;
 
-                throw new ArgumentOutOfRangeException();  //lisätäään ominaisuuden tarkastamiseen poikkeuksen nostamistoiminto. Poikkeus nostetaan, jos nopeus on alle 0 tai yli 400
+                throw new ArgumentOutOfRangeException();  
             }
         }
 
-        //Metodi, mikä lukee Private-kentän arvon ja palauttaa sen
+      
         public int GetMaxSpeed()
         {
             return maxSpeed;
@@ -78,12 +79,14 @@ namespace WPFGarbage
 
         public void Accelerate()
         {
-            
-                AverageSpeed++;
-           
-            
-        }
 
+               
+            if (AverageSpeed < maxSpeed)
+            {
+                AverageSpeed++;
+            }
+
+        }
         public void Brake()
         {
             if (AverageSpeed > 0) {
